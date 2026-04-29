@@ -13,9 +13,10 @@ jobs:
       - env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          sleep 30s
           gh pr close ${{ github.event.pull_request.number }}
           echo "PR CLOSED - Starting Delay"
-          sleep 1m
+          sleep 30s
           echo "END DELAY - REOPENING"
           gh pr reopen ${{ github.event.pull_request.number }}
           echo "PR REOPENED"
