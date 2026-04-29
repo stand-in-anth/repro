@@ -1,0 +1,19 @@
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  close-reopen:
+    runs-on: ubuntu-latest
+    permission:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr close ${{ github.event.pull_request.number }}
+          echo "PR CLOSED"
+          gh pr reopen ${{ github.event.pull_request.number }}
+          echo "PR REOPENED"
